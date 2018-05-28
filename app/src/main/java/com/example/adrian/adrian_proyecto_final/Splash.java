@@ -8,12 +8,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.example.adrian.adrian_proyecto_final.activities.LoginActivity;
-import com.example.adrian.adrian_proyecto_final.activities.MainActivityFragment;
 
-public class MainActivity extends AppCompatActivity {
+public class Splash extends AppCompatActivity {
     boolean user_logged = false;
     // Duración en milisegundos que se mostrará el splash
-    private final int DURACION_SPLASH = 2000; // 3 segundos
+    private final int DURACION_SPLASH = 1000; // 2 segundos
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             public void run() {
                 if (user_logged) {
-                    Intent intent = new Intent(getApplicationContext(), MainActivityFragment.class);
+                    Intent intent = new Intent(getApplicationContext(), com.example.adrian.adrian_proyecto_final.activities.MainActivity.class);
                     startActivity(intent);
                     finish();
                 } else {

@@ -82,7 +82,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                             openFileOutput("usuarios.txt", Context.MODE_APPEND));
 
             fout.write(textInputEditTextName.getText().toString()+","+textInputEditTextEmail.getText().toString()+","+textInputEditTextPassword.getText().toString()+";");
-         //   Toast.makeText(this, textInputEditTextName.getText().toString()+", "+textInputEditTextEmail.getText().toString()+", "+textInputEditTextPassword+";", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, textInputEditTextName.getText().toString()+", "+textInputEditTextEmail.getText().toString()+", "+textInputEditTextPassword.getText().toString()+";", Toast.LENGTH_LONG).show();
             fout.close();
         }
         catch (Exception ex)

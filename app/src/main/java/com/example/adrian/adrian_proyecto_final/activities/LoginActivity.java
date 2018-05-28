@@ -25,8 +25,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private NestedScrollView nestedScrollView;
 
-    private boolean user_logged;
-    private final AppCompatActivity activity = LoginActivity.this;
+
     private TextInputEditText textInputEditTextUsuario, textInputEditTextContraseña;
     private CheckBox checkBoxMantenerSesion;
     private AppCompatButton buttonLogin;
@@ -50,8 +49,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void initSharedPreferences() {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-         editor = preferences.edit();
-        if (preferences.contains("user_logged") && preferences.getBoolean("user_logged", false) == true){
+        editor = preferences.edit();
+        if (preferences.contains("user_logged") && preferences.getBoolean("user_logged", false) == true) {
             checkBoxMantenerSesion.setChecked(true);
         } else {
             checkBoxMantenerSesion.setChecked(false);
@@ -87,11 +86,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.appCompatButtonLogin:
-               if (!initFile()){ // Si no se encuentra el archivo de los usuarios posiblemente no haya ninguno guardado
-                   Toast.makeText(this, R.string.not_users_saved, Toast.LENGTH_LONG).show();
-                   return;
-               }
-               // verifyCheckBox();
+                if (!initFile()) { // Si no se encuentra el archivo de los usuarios posiblemente no haya ninguno guardado
+                    Toast.makeText(this, R.string.not_users_saved, Toast.LENGTH_LONG).show();
+                    return;
+                }
+                // verifyCheckBox();
                 verifyUser();
                 break;
 
@@ -103,8 +102,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 break;
 
             case R.id.checkboxMantenerSesion:
-                if (checkBoxMantenerSesion.isChecked()){
-                    editor.putBoolean("user_logged",true);
+                if (checkBoxMantenerSesion.isChecked()) {
+                    editor.putBoolean("user_logged", true);
                     editor.apply();
                 } else {
                     editor.putBoolean("user_logged", false);
@@ -126,7 +125,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     /**
-     *  verificar si el usuario y la contrasena son correctos.
+     * verificar si el usuario y la contrasena son correctos.
      */
     private void verifyUser() {
         user = textInputEditTextUsuario.getText().toString();
@@ -138,33 +137,32 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         } else {
             for (int i = 0; i <= usuarios.length - 1; i++) {
 
-                if (i == usuarios.length - 1 )
-                    return;
-
-                users_saved = usuarios[i].split(","); // Leemos linea por linea el archivo donde estan guardados los datos de los usuarios y hacemos un nuevo arreglo con los datos de la linea
-
-                try {
-                    user_saved = users_saved[1];
-                    pass_saved = users_saved[2];
-                } catch (Exception e) {
-                    e.printStackTrace();
+                // En caso de que llegue al final del archivo y los datos no correspondan con los ingresados termina el ciclo for
+                if (i == usuarios.length - 1) {
                     Snackbar.make(nestedScrollView, getString(R.string.wrong_user_or_password), Snackbar.LENGTH_LONG).show();
+                    return;
                 }
 
+                users_saved = usuarios[i].split(","); // Leemos linea por linea el archivo donde estan guardados los datos de los usuarios y hacemos un nuevo arreglo con los datos de la linea
+                user_saved = users_saved[1];// leemos el correo
+                    pass_saved = users_saved[2]; // leemos la contraseña
 
-                if ((user_saved.equals(user) ) && (pass_saved.equals(password) )) {
-                    Intent intentMainFragment = new Intent(getApplicationContext(), MainActivityFragment.class);
-                    intentMainFragment.putExtra("USERNAME",users_saved[0]); // usuario
-                    intentMainFragment.putExtra("EMAIL",users_saved[1]); // correo
+                if ((user_saved.equals(user)) && (pass_saved.equals(password))) {
+                    Intent intentMainFragment = new Intent(getApplicationContext(), MainActivity.class);
+                    intentMainFragment.putExtra("USERNAME", users_saved[0]); // usuario
+                    intentMainFragment.putExtra("EMAIL", users_saved[1]); // correo
                     startActivity(intentMainFragment);
                     return;
+                } else {
+
+                }
             }
+
+            // Toast.makeText(this, ""+ users_saved[2],Toast.LENGTH_LONG).show();
+
         }
-        // Toast.makeText(this, ""+ users_saved[2],Toast.LENGTH_LONG).show();
 
-    } 
-
-}
+    }
 
     @NonNull
     private Boolean initFile() {

@@ -2,8 +2,6 @@ package com.example.adrian.adrian_proyecto_final.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,14 +12,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.adrian.adrian_proyecto_final.R;
 import com.example.adrian.adrian_proyecto_final.fragments.GMapsFragment;
-import com.example.adrian.adrian_proyecto_final.fragments.MainFragment;
+import com.example.adrian.adrian_proyecto_final.fragments.PersonsFragment;
 import com.example.adrian.adrian_proyecto_final.settings.SettingsActivity;
 
-public class MainActivityFragment extends AppCompatActivity
+public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener
 
 {
@@ -104,7 +101,8 @@ public class MainActivityFragment extends AppCompatActivity
 
 
         } else if (id == R.id.nav_personas_desaparecidas) {
-
+            fragment = new PersonsFragment();
+            fragmentTransition = true;
 
         } else if (id == R.id.nav_agregar_persona) {
 
